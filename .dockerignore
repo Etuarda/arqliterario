@@ -1,0 +1,11 @@
+# Controle de versão
+.git
+.gitignore
+
+# Arquivos gerados em runtime
+log/*
+tmp/*
+
+# Dependências locais
+node_modules
+vendor/bundle
