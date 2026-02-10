@@ -1,0 +1,63 @@
+<%= form_with(model: book) do |form| %>
+
+  <% if book.errors.any? %>
+    <div style="color: red">
+      <h2>
+        <%= pluralize(book.errors.count, "error") %> impediram o livro de ser salvo:
+      </h2>
+
+      <ul>
+        <% book.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend>Informações do livro</legend>
+
+    <div>
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    </div>
+
+    <div>
+      <%= form.label :author %>
+      <%= form.text_field :author %>
+    </div>
+
+    <!-- Ano de publicação com entrada livre -->
+    <div>
+      <%= form.label :published_year %>
+      <%= form.number_field :published_year,
+            min: 1960,
+            max: Time.current.year,
+            step: 1,
+            placeholder: "Ex: 2005" %>
+    </div>
+
+    <div>
+      <%= form.label :isbn %>
+      <%= form.text_field :isbn %>
+    </div>
+
+    <div>
+      <%= form.label :image_url %>
+      <%= form.text_field :image_url %>
+    </div>
+
+    <!-- Status baseado no enum -->
+    <div>
+      <%= form.label :status %>
+      <%= form.select :status,
+            Book.statuses.keys.map { |key| [key.humanize, key] } %>
+    </div>
+
+  </fieldset>
+
+  <div>
+    <%= form.submit %>
+  </div>
+
+<% end %>
