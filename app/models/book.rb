@@ -1,4 +1,5 @@
 class Book < ApplicationRecord
+  belongs_to :user
 
   enum status: {
     quero_ler: 0,
@@ -6,6 +7,7 @@ class Book < ApplicationRecord
     lido: 2,
     abandonado: 3
   }
+
 
   validates :title, :author, presence: true
 end

@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>App</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+ <header style="display:flex;gap:12px;align-items:center;padding:12px;border-bottom:1px solid #ddd;">
+  <%= link_to "Home", root_path %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <div style="margin-left:auto;display:flex;gap:10px;">
+    <% if user_signed_in? %>
+      <span>Olá, <strong><%= current_user.name.presence || current_user.email %></strong></span>
+      <%= button_to "Sair", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Criar conta", new_user_registration_path %>
+      <%= link_to "Login", new_user_session_path %>
+    <% end %>
+  </div>
+</header>
 
   <body>
     <%= yield %>
   </body>
 </html>
+
+
+
