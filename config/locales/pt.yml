@@ -1,0 +1,9 @@
+pt-PT:
+  activerecord:
+    attributes:
+      book:
+        status:
+          quero_ler: "Quero Ler"
+          lendo: "Lendo agora"
+          lido: "Lido"
+          abandonado: "Abandonado"

@@ -16,12 +16,31 @@
   </head>
 
   <body class="bg-paper text-ink antialiased">
-    <%# HEADER %>
+   
+    <% if !user_signed_in? %>
+      <header class="site-header">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+          <%= link_to "Arquivo Literário", root_path, class: "brand text-xl tracking-tight text-clay" %>
+
+          <div class="flex items-center gap-6">
+            <%= link_to "Entrar",
+                  new_user_session_path,
+                  class: "sans text-[10px] uppercase tracking-widest font-bold text-ink-muted hover:text-clay transition-colors" %>
+
+            <%= link_to "Criar Conta",
+                  new_user_registration_path,
+                  class: "btn-refined btn-primary text-[10px] py-2 px-6" %>
+          </div>
+        </div>
+      </header>
+    <% end %>
+
+    
     <% if user_signed_in? %>
       <header class="site-header">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
           <div class="flex items-center gap-8">
-            <%= link_to "Arquivo Literário", root_path, class: "brand text-xl tracking-tight text-clay" %>
+            <%= link_to "Arquivo Literário", books_path, class: "brand text-xl tracking-tight text-clay" %>
 
             <nav class="hidden md:flex gap-6 items-center border-l border-border pl-8">
               <%= link_to "Minha Estante", books_path, class: "nav-link nav-link--active" %>
@@ -29,30 +48,22 @@
           </div>
 
           <div class="flex items-center gap-6">
-            <%= link_to "+ Nova Leitura", new_book_path, class: "btn-refined btn-primary text-[10px] py-2 px-6" %>
+            <%= link_to "+ Nova Leitura",
+                  new_book_path,
+                  class: "btn-refined btn-primary text-[10px] py-2 px-6" %>
+
             <div class="h-8 w-px bg-border"></div>
-            <%= link_to "Sair", destroy_user_session_path,
+
+            <%= link_to "Sair",
+                  destroy_user_session_path,
                   data: { turbo_method: :delete },
                   class: "sans text-[10px] uppercase tracking-widest font-bold text-ink-muted hover:text-red-700 transition-colors" %>
           </div>
         </div>
       </header>
-    <% else %>
-      <header class="site-header">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-          <%= link_to "Arquivo Literário", root_path, class: "brand text-xl tracking-tight text-clay" %>
-
-          <div class="flex items-center gap-6">
-            <%= link_to "Entrar", new_user_session_path,
-                  class: "sans text-[10px] uppercase tracking-widest font-bold text-ink-muted hover:text-clay transition-colors" %>
-            <%= link_to "Criar Conta", new_user_registration_path,
-                  class: "btn-refined btn-primary text-[10px] py-2 px-6" %>
-          </div>
-        </div>
-      </header>
     <% end %>
 
-    <%# FLASHES no estilo do layout %>
+    <%# FLASHES (mantém teu padrão) %>
     <div class="container mx-auto px-6">
       <% if notice.present? %>
         <div class="flash flash-notice"><%= notice %></div>
@@ -81,7 +92,7 @@
             <p class="sans text-[9px] uppercase tracking-[2px] text-[#999999] mb-2 font-medium">
               © <%= Time.current.year %> — Memorial Literário Pessoal
             </p>
-            <span class="text-xs italic text-clay">In libris libertas.</span>
+            <span class="text-xs italic text-clay"> Desenvolvido por - Eduarda Silva Santos</span>
           </div>
         </div>
       </div>

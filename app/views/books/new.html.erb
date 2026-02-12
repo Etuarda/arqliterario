@@ -38,7 +38,7 @@
         <div class="space-y-1">
           <%= form.label :status, "Estado", class: "sans text-[9px] uppercase tracking-widest text-ink-muted ml-4 font-bold" %>
           <%= form.select :status,
-                ["Lido", "Lendo agora", "Quero Ler", "Abandonado"],
+                Book.statuses.keys.map { |k| [I18n.t("activerecord.attributes.book.status.#{k}"), k] },
                 {}, class: "input-field" %>
         </div>
       </div>
