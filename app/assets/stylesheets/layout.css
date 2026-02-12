@@ -1,58 +1,41 @@
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+.site-header {
+  background: rgba(252, 250, 247, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-header {
-  padding: 4rem 0 2rem;
-  text-align: center;
+.site-footer {
+  border-top: 1px solid var(--border);
+  background: var(--white);
+  padding: 4rem 0;
 }
 
-.brand {
-  font-size: 2.2rem;
-  color: var(--clay);
-  text-decoration: none;
-  display: block;
-  margin-bottom: 0.5rem;
-  letter-spacing: -1px;
+/* view switch (se você usa páginas/sections com hide/show) */
+.view-section { display: none; animation: fadeIn 0.6s ease-out; }
+.view-section.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.tagline {
+/* toast */
+.toast-success {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--ink);
+  color: var(--white);
+  padding: 1rem 2rem;
+  border-radius: var(--radius-pill);
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--ink-muted);
-  margin-bottom: 2rem;
-}
-
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 0;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
-  margin-bottom: 4rem;
-}
-
-nav a, nav button {
-  color: var(--ink);
-  text-decoration: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-nav a:hover {
-  color: var(--clay);
-}
-
-.nav-active {
-  color: var(--clay);
-  font-weight: 600;
+  letter-spacing: 1px;
+  display: none;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }

@@ -59,5 +59,7 @@ group :development do
   gem "devise"
 
   gem "httparty"
+
+  gem "tailwindcss-rails"
 end
 

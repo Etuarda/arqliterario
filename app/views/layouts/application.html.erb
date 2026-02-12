@@ -1,35 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-pt">
   <head>
-    <title>Arquivo Literário</title>
+    <title>Arquivo Literário | Memorial de Leituras</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <header class="container">
-      <div class="brand-row">
-        <h1 class="brand">Arquivo Literário</h1>
-        <p class="tagline">Um porto seguro para as nossas histórias lidas</p>
+  <body class="bg-paper text-ink antialiased">
+    <%# HEADER %>
+    <% if user_signed_in? %>
+      <header class="site-header">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+          <div class="flex items-center gap-8">
+            <%= link_to "Arquivo Literário", root_path, class: "brand text-xl tracking-tight text-clay" %>
 
-        <nav class="auth-nav">
-          <% if user_signed_in? %>
-            <span class="user-greeting">Olá, <%= current_user.name.presence || current_user.email %></span>
-            <%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link" %>
-          <% else %>
-            <%= link_to "Entrar", new_user_session_path, class: "nav-link" %>
-            <%= link_to "Criar conta", new_user_registration_path, class: "nav-link" %>
-          <% end %>
-        </nav>
-      </div>
-    </header>
+            <nav class="hidden md:flex gap-6 items-center border-l border-border pl-8">
+              <%= link_to "Minha Estante", books_path, class: "nav-link nav-link--active" %>
+            </nav>
+          </div>
 
-    <main>
+          <div class="flex items-center gap-6">
+            <%= link_to "+ Nova Leitura", new_book_path, class: "btn-refined btn-primary text-[10px] py-2 px-6" %>
+            <div class="h-8 w-px bg-border"></div>
+            <%= link_to "Sair", destroy_user_session_path,
+                  data: { turbo_method: :delete },
+                  class: "sans text-[10px] uppercase tracking-widest font-bold text-ink-muted hover:text-red-700 transition-colors" %>
+          </div>
+        </div>
+      </header>
+    <% else %>
+      <header class="site-header">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+          <%= link_to "Arquivo Literário", root_path, class: "brand text-xl tracking-tight text-clay" %>
+
+          <div class="flex items-center gap-6">
+            <%= link_to "Entrar", new_user_session_path,
+                  class: "sans text-[10px] uppercase tracking-widest font-bold text-ink-muted hover:text-clay transition-colors" %>
+            <%= link_to "Criar Conta", new_user_registration_path,
+                  class: "btn-refined btn-primary text-[10px] py-2 px-6" %>
+          </div>
+        </div>
+      </header>
+    <% end %>
+
+    <%# FLASHES no estilo do layout %>
+    <div class="container mx-auto px-6">
       <% if notice.present? %>
         <div class="flash flash-notice"><%= notice %></div>
       <% end %>
@@ -37,8 +61,30 @@
       <% if alert.present? %>
         <div class="flash flash-alert"><%= alert %></div>
       <% end %>
+    </div>
 
+    <main class="min-h-[75vh]">
       <%= yield %>
     </main>
+
+    <footer class="site-footer">
+      <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+          <div class="text-center md:text-left">
+            <h4 class="brand text-xl text-clay mb-1">Arquivo Literário</h4>
+            <p class="sans text-[9px] text-ink-muted tracking-[2px] uppercase font-semibold">
+              Preservando a alma de cada leitura.
+            </p>
+          </div>
+
+          <div class="flex flex-col items-center md:items-end">
+            <p class="sans text-[9px] uppercase tracking-[2px] text-[#999999] mb-2 font-medium">
+              © <%= Time.current.year %> — Memorial Literário Pessoal
+            </p>
+            <span class="text-xs italic text-clay">In libris libertas.</span>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

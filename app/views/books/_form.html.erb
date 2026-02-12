@@ -11,7 +11,7 @@
   <% end %>
 
   <div class="registration-box detail-box">
-    <h3 class="form-subheading">Detalhes da Edição</h3>
+    <h3 class="form-subheading">Detalhes da edição</h3>
 
     <div class="form-group">
       <%= form.label :title, "Título", class: "input-label" %>
@@ -40,8 +40,10 @@
 
     <div class="form-group">
       <%= form.label :status, "Status", class: "input-label" %>
-      <%= form.select :status, Book.statuses.keys.map { |s| [s.humanize, s] }, { include_blank: "Selecione..." }, class: "vintage-input" %>
-
+      <%= form.select :status,
+            Book.statuses.keys.map { |s| [s.humanize, s] },
+            { include_blank: "Selecione..." },
+            class: "vintage-input" %>
     </div>
 
     <div class="actions">

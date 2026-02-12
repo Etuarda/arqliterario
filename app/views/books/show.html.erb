@@ -3,8 +3,8 @@
 <%= render @book %>
 
 <div>
-  <%= link_to "Edit this book", edit_book_path(@book) %> |
-  <%= link_to "Back to books", books_path %>
+  <%= link_to "Editar", edit_book_path(@book) %> |
+  <%= link_to "Voltar", books_path %>
 
-  <%= button_to "Destroy this book", @book, method: :delete %>
+  <%= button_to "Excluir", @book, method: :delete, data: { confirm: "Deseja excluir este livro?" } %>
 </div>

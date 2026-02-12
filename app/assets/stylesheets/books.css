@@ -1,90 +1,33 @@
-.shelf-title {
-  font-size: 1.5rem;
-  margin-bottom: 3rem;
-  text-align: center;
-  font-style: italic;
+.book-card {
+  transition: transform 0.4s ease;
+  cursor: pointer;
 }
 
-.book-feed {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
+.book-card:hover {
+  transform: translateY(-6px);
 }
 
-.book-entry {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 3rem;
-  align-items: start;
-}
-
-.book-cover-art {
+.book-cover-small {
   aspect-ratio: 2/3;
   background: var(--clay-light);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 2px;
+  box-shadow: 4px 4px 15px rgba(0,0,0,0.05);
+  margin-bottom: 1rem;
+  overflow: hidden;
   position: relative;
-  box-shadow: 10px 10px 0 var(--border);
 }
 
-.book-content h3 {
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-  line-height: 1.2;
-}
-
-.book-author {
-  font-style: italic;
-  color: var(--clay);
-  margin-bottom: 1.5rem;
-  display: block;
-}
-
-.book-reflection {
-  font-size: 0.95rem;
-  color: var(--ink-muted);
-  margin-bottom: 1.5rem;
-  padding-left: 1.5rem;
-  border-left: 2px solid var(--clay-light);
-}
-
-.book-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.status-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255,255,255,0.9);
   font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  color: var(--ink-muted);
+  font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 1px;
-}
-
-.actions {
-  display: flex;
-  gap: 1rem;
-}
-
-.action-link {
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.action-link:hover {
-  color: var(--clay);
-}
-
-.delete-link:hover {
-  color: #cc0000;
-}
-
-@media (max-width: 700px) {
-  .book-entry {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .registration-box {
-    padding: 1.5rem;
-  }
+  padding: 4px;
+  text-align: center;
+  border-top: 1px solid var(--border);
 }

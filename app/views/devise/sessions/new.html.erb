@@ -1,26 +1,23 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
-  </div>
-
-  <div class="field">
-    <p><%= f.label :password %></p>
-    <p><%= f.password_field :password, autocomplete: "current-password" %></p>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <p><%= f.check_box :remember_me %></p>
-      <p><%= f.label :remember_me %></p>
+<section class="pt-10 pb-20">
+  <div class="auth-card">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl mb-1 italic">Acesso ao Arquivo</h2>
+      <p class="sans text-[9px] uppercase tracking-[3px] text-ink-muted">Identidade Literária</p>
     </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-5" }) do |f| %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email",
+            class: "input-field", placeholder: "Endereço de e-mail" %>
+
+      <%= f.password_field :password, autocomplete: "current-password",
+            class: "input-field", placeholder: "Sua Senha" %>
+
+      <%= f.submit "Entrar no Memorial", class: "btn-refined btn-primary w-full mt-4" %>
+    <% end %>
+
+    <div class="mt-8 pt-6 border-t border-border text-center">
+      <%= link_to "Solicitar Novo Registro", new_user_registration_path,
+            class: "sans text-[10px] text-clay font-bold uppercase tracking-widest hover:underline" %>
+    </div>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</section>

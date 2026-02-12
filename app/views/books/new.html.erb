@@ -1,59 +1,52 @@
-<div class="container">
-  <%= render "shared/open_library_search",
-    title: "Guardar uma nova leitura",
-    label: "Qual livro andas a ler?",
-    placeholder: "Procurar pelo título no acervo mundial..." %>
+<section class="pt-10 pb-20">
+  <div class="auth-card">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl mb-1 italic">Nova Inscrição</h2>
+      <p class="sans text-[9px] uppercase tracking-[3px] text-ink-muted">Registo de Obra</p>
+    </div>
 
-  <%= form_with(model: @book, id: "real-book-form") do |form| %>
-    <% if @book.errors.any? %>
-      <div class="error-messages">
-        <h2><%= pluralize(@book.errors.count, "erro") %> impediram o salvamento:</h2>
-        <ul>
-          <% @book.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
+    <%= form_with(model: @book, class: "space-y-4") do |form| %>
+      <% if @book.errors.any? %>
+        <div class="mb-4">
+          <p class="sans text-[10px] uppercase tracking-widest font-bold text-clay mb-2">
+            Não foi possível guardar:
+          </p>
+          <ul class="text-sm text-ink-muted list-disc pl-6">
+            <% @book.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="space-y-1">
+        <%= form.label :title, "Título da Obra", class: "sans text-[9px] uppercase tracking-widest text-ink-muted ml-4 font-bold" %>
+        <%= form.text_field :title, class: "input-field", placeholder: "Ex: Dom Quixote", required: true %>
+      </div>
+
+      <div class="space-y-1">
+        <%= form.label :author, "Autor(a)", class: "sans text-[9px] uppercase tracking-widest text-ink-muted ml-4 font-bold" %>
+        <%= form.text_field :author, class: "input-field", placeholder: "Ex: Miguel de Cervantes", required: true %>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-1">
+          <%= form.label :published_year, "Ano", class: "sans text-[9px] uppercase tracking-widest text-ink-muted ml-4 font-bold" %>
+          <%= form.number_field :published_year, class: "input-field", placeholder: "1605" %>
+        </div>
+
+        <div class="space-y-1">
+          <%= form.label :status, "Estado", class: "sans text-[9px] uppercase tracking-widest text-ink-muted ml-4 font-bold" %>
+          <%= form.select :status,
+                ["Lido", "Lendo agora", "Quero Ler", "Abandonado"],
+                {}, class: "input-field" %>
+        </div>
+      </div>
+
+      <div class="pt-6 flex flex-col gap-3">
+        <%= form.submit "Guardar no Arquivo", class: "btn-refined btn-primary w-full" %>
+        <%= link_to "Cancelar", books_path, class: "btn-refined btn-secondary w-full text-center" %>
       </div>
     <% end %>
-
-    <div class="registration-box detail-box">
-      <h3 class="form-subheading">Detalhes da Edição</h3>
-
-      <div class="form-group">
-        <%= form.label :title, "Título da obra", class: "input-label" %>
-        <%= form.text_field :title, id: "field-title", class: "vintage-input-small" %>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :author, "Autor(a)", class: "input-label" %>
-        <%= form.text_field :author, id: "field-author", class: "vintage-input-small" %>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <%= form.label :published_year, "Ano", class: "input-label" %>
-          <%= form.number_field :published_year, id: "field-year", class: "vintage-input-small" %>
-        </div>
-
-        <div class="form-group">
-          <%= form.label :status, "Status", class: "input-label" %>
-          <%= form.select :status,
-                Book.statuses.keys.map { |key| [key.humanize, key] },
-                {},
-                { class: "vintage-input-small" } %>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :isbn, "ISBN", class: "input-label" %>
-        <%= form.text_field :isbn, id: "field-isbn", class: "vintage-input-small" %>
-      </div>
-
-      <%= form.hidden_field :image_url, id: "field-image" %>
-
-      <div class="form-actions">
-        <%= form.submit "Confirmar e Guardar no Memorial", class: "btn-main" %>
-      </div>
-    </div>
-  <% end %>
-</div>
+  </div>
+</section>
