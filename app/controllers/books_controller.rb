@@ -13,6 +13,12 @@ class BooksController < ApplicationController
   # Garante que apenas o dono do livro possa alterá-lo ou removê-lo.
   before_action :authorize_owner!, only: %i[edit update destroy]
 
+  # GET /books/search
+  def search
+  results = OpenLibrary::SearchService.new(query: params[:q]).call
+  render json: results
+  end
+
   # GET /books
   #
   # Lista pública de livros.
@@ -74,6 +80,7 @@ class BooksController < ApplicationController
     end
   end
 
+
   private
 
   # -------------------------------------------------------------------
@@ -105,4 +112,5 @@ class BooksController < ApplicationController
       :status
     )
   end
+
 end

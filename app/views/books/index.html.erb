@@ -1,14 +1,44 @@
-<p style="color: green"><%= notice %></p>
+<header class="container">
+  <h1 class="brand">Arquivo Literário</h1>
+  <p class="tagline">Um porto seguro para as nossas histórias lidas</p>
 
-<h1>Books</h1>
+  <%= render "shared/open_library_search",
+    mode: "redirect",
+    title: "Explorar o Acervo Mundial",
+    label: "Qual livro procuras?",
+    placeholder: "Digite o título ou autor..." %>
 
-<div id="books">
-  <% @books.each do |book| %>
-    <%= render book %>
-    <p>
-      <%= link_to "Show this book", book %>
-    </p>
-  <% end %>
-</div>
+  <p class="toggle-mode" style="margin-top: 1rem;">
+    <%= link_to "Escrever uma nota manual", new_book_path, class: "toggle-link" %>
+  </p>
+</header>
 
-<%= link_to "New book", new_book_path %>
+<main class="container">
+  <div class="book-feed">
+    <% @books.each do |book| %>
+      <article class="book-entry">
+        <div class="book-cover-art">
+          <span class="published-year-label"><%= book.published_year %></span>
+        </div>
+
+        <div class="book-content">
+          <h3><%= book.title %></h3>
+          <span class="book-author"><%= book.author %></span>
+
+          <div class="book-footer">
+            <span>Partilhado por <%= book.user.name.presence || book.user.email %></span>
+
+            <% if user_signed_in? && book.user == current_user %>
+              <div class="actions">
+                <%= link_to "Ajustar", edit_book_path(book), class: "action-link" %>
+                <%= button_to "Apagar", book, method: :delete,
+                      data: { confirm: "Deseja apagar?" },
+                      class: "action-link delete-link" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </article>
+    <% end %>
+  </div>
+</main>

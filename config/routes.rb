@@ -1,16 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :books
 
-  root "books#index"
-  resources :books
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resources :books do
+    collection do
+      # Esta é a rota que seu JavaScript chama para a Open Library
+      get :search 
+    end
+  end
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
-
-
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Define a página inicial como a lista de livros
+  root "books#index" 
 end
