@@ -1,0 +1,64 @@
+.registration-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 3rem;
+  margin-bottom: 5rem;
+  border-radius: 2px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+  position: relative;
+}
+
+.registration-box::before {
+  content: "";
+  position: absolute;
+  top: 10px; left: 10px; right: 10px; bottom: 10px;
+  border: 1px solid var(--border);
+  pointer-events: none;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  color: var(--ink-muted);
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  font-family: 'Lora', serif;
+  font-size: 1rem;
+  background: transparent;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--clay);
+}
+
+.btn-main {
+  background: var(--clay);
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 1rem;
+}
+
+.btn-main:hover {
+  background: var(--ink);
+}

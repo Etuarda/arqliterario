@@ -1,0 +1,29 @@
+:root {
+  --bg-paper: #fcfaf7;
+  --clay: #a67358;
+  --clay-light: #d9b8a7;
+  --olive: #7c8a71;
+  --ink: #2c2c2c;
+  --ink-muted: #666666;
+  --border: #e0dcd6;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Lora', serif;
+  background-color: var(--bg-paper);
+  color: var(--ink);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+}
