@@ -1,16 +1,12 @@
 <header class="container">
-  <h1 class="brand">Arquivo Literário</h1>
-  <p class="tagline">Um porto seguro para as nossas histórias lidas</p>
-
+  
   <%= render "shared/open_library_search",
     mode: "redirect",
     title: "Explorar o Acervo Mundial",
     label: "Qual livro procuras?",
     placeholder: "Digite o título ou autor..." %>
 
-  <p class="toggle-mode" style="margin-top: 1rem;">
-    <%= link_to "Escrever uma nota manual", new_book_path, class: "toggle-link" %>
-  </p>
+ 
 </header>
 
 <main class="container">

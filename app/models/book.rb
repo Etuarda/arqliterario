@@ -8,6 +8,5 @@ class Book < ApplicationRecord
     abandonado: 3
   }
 
-
   validates :title, :author, presence: true
 end

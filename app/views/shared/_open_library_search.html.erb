@@ -1,132 +1,24 @@
 <div
   class="registration-box search-container"
-  data-open-library-search
-  data-mode="<%= local_assigns.fetch(:mode, "redirect") %>"
->
-  <h2 class="form-heading"><%= local_assigns.fetch(:title, "Explorar o Acervo Mundial") %></h2>
+  data-controller="open-library-search"
+  data-open-library-search-url-value="<%= search_books_path %>">
+
+  <h2 class="form-heading">Explorar o Acervo Mundial</h2>
 
   <div class="form-group">
-    <label class="input-label"><%= local_assigns.fetch(:label, "Qual livro procuras?") %></label>
+    <label class="input-label">Qual livro procuras?</label>
 
     <input
       type="text"
       class="vintage-input"
-      data-search-input
-      placeholder="<%= local_assigns.fetch(:placeholder, "Digite o título ou autor...") %>"
-      autocomplete="off"
-    />
+      placeholder="Digite o título ou autor..."
+      data-open-library-search-target="input"
+      data-action="input->open-library-search#search" />
 
-    <div class="results-dropdown" data-results style="display:none;"></div>
+    <div class="results-dropdown" data-open-library-search-target="results"></div>
   </div>
 
-  <% if local_assigns[:mode].to_s == "fill_form" %>
-    <%= render "shared/open_library_fill_form_fields" %>
-  <% end %>
+  <p class="toggle-mode" style="margin-top: 1rem;">
+    <%= link_to "Escrever uma nota manual", new_book_path, class: "toggle-link" %>
+  </p>
 </div>
-
-<script>
-  (function () {
-    const root = document.querySelector('[data-open-library-search]');
-    if (!root) return;
-
-    const mode = root.getAttribute('data-mode') || 'redirect';
-    const input = root.querySelector('[data-search-input]');
-    const results = root.querySelector('[data-results]');
-
-    let timeoutId;
-
-    function hideResults() {
-      results.style.display = 'none';
-      results.innerHTML = '';
-    }
-
-    function showResults() {
-      results.style.display = 'block';
-    }
-
-    function fillForm(book) {
-      const title = book.title || '';
-      const author = book.author || '';
-      const year = book.published_year || '';
-      const isbn = book.isbn || '';
-      const imageUrl = book.image_url || '';
-
-      const fieldTitle = document.getElementById('field-title');
-      const fieldAuthor = document.getElementById('field-author');
-      const fieldYear = document.getElementById('field-year');
-      const fieldIsbn = document.getElementById('field-isbn');
-      const fieldImage = document.getElementById('field-image');
-
-      if (fieldTitle) fieldTitle.value = title;
-      if (fieldAuthor) fieldAuthor.value = author;
-      if (fieldYear) fieldYear.value = year;
-      if (fieldIsbn) fieldIsbn.value = isbn;
-      if (fieldImage) fieldImage.value = imageUrl;
-
-      input.value = '';
-      input.placeholder = `Livro selecionado: ${title || '---'}`;
-      hideResults();
-    }
-
-    function redirectToNew(book) {
-      const params = new URLSearchParams({
-        title: book.title || '',
-        author: book.author || '',
-        year: book.published_year || '',
-        isbn: book.isbn || '',
-        image_url: book.image_url || ''
-      });
-
-      window.location.href = `/books/new?${params.toString()}`;
-    }
-
-    function renderItem(book) {
-      const div = document.createElement('div');
-      div.className = 'result-item';
-
-      const title = book.title || 'Sem título';
-      const author = book.author || 'Autor desconhecido';
-      const year = book.published_year || 'N/A';
-
-      div.innerHTML = `<strong>${title}</strong><br><small>${author} (${year})</small>`;
-
-      div.addEventListener('click', () => {
-        if (mode === 'fill_form') fillForm(book);
-        else redirectToNew(book);
-      });
-
-      return div;
-    }
-
-    input.addEventListener('input', () => {
-      clearTimeout(timeoutId);
-
-      const q = input.value.trim();
-      if (q.length < 3) {
-        hideResults();
-        return;
-      }
-
-      timeoutId = setTimeout(async () => {
-        try {
-          const resp = await fetch(`/books/search?q=${encodeURIComponent(q)}`);
-          if (!resp.ok) throw new Error('Falha na busca');
-
-          const books = await resp.json();
-
-          results.innerHTML = '';
-          (books || []).forEach((b) => results.appendChild(renderItem(b)));
-
-          if ((books || []).length > 0) showResults();
-          else hideResults();
-        } catch (e) {
-          hideResults();
-        }
-      }, 350);
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!root.contains(e.target)) hideResults();
-    });
-  })();
-</script>
